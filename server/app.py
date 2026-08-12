@@ -66,7 +66,7 @@ def get_contract(id):
         id (int): The contract ID to search for
     
     Returns:
-        dict: Contract information if found
+        str: Contract information if found
         int: HTTP 200 OK if contract exists
         
         OR
@@ -75,15 +75,15 @@ def get_contract(id):
         int: HTTP 404 NOT FOUND if contract doesn't exist
     
     Example:
-        GET /contract/1 -> Returns contract with id 1
+        GET /contract/1 -> Returns "This contract is for John and building a shed"
         GET /contract/99 -> Returns 404 error
     """
     # Search for contract matching the provided ID using generator expression
     contract = next((c for c in contracts if c["id"] == id), None)
     
-    # Return contract if found, otherwise return 404 error
+    # Return contract information string if found, otherwise return 404 error
     if contract:
-        return contract, 200
+        return contract["contract_information"], 200
     return {"error": "Contract not found"}, 404
 
 
