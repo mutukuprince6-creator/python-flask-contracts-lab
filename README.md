@@ -1,102 +1,89 @@
-# Lab: Contractors Lab
+# Flask Contracts Management API
+
+A lightweight REST API for managing contracts and customers with privacy-focused design and proper HTTP status codes.
 
 ---
 
-## Overview
+##  Features
 
-Now it is time for you to build your own request responses!
+### API Endpoints
 
-You are working for a company that manages contracts between two parties. You need to manage sensitive data, and as such, you need to build two requests:
+**Get All Contracts**
+```
+GET /contractor_info → 200 {contractors, total_contracts}
+```
 
-- One for **customer information**
-- One for **contract information**
+**Get Specific Contract**
+```
+GET /contract/<id> → 200 {contract} | 404 {error}
+```
 
-You will be using two new response codes:
+**Get All Customers**
+```
+GET /customer_info → 200 {customers, total_customers}
+```
 
-- **204**: Successful response but no data to send (e.g., confirming a customer exists without sharing data).
-- **404**: Not found — we cannot find the requested data.
-
----
-
-## Tasks
-
-### Task 1: Define the Problem
-
-Build the following routes:
-
-- `/contract/<id>`
-- `/customer/<customer_name>`
-
----
-
-### Task 2: Determine the Design
-
-#### App Routes:
-
-- `GET /contract/<id>`
-  - **200**: Contract found — return contract information.
-  - **404**: Contract not found.
-
-- `GET /customer/<customer_name>`
-  - **204**: Customer found — no information returned (sensitive).
-  - **404**: Customer not found.
+**Check Customer Existence**
+```
+GET /customer/<customer_name> → 204 (empty) | 404 {error}
+```
 
 ---
 
-### Task 3: Develop the Code
+##  Key Design Principles
 
-- Initialize Flask
-- Set up routes
-- Configure responses
-
----
-
-### Task 4: Test and Refine
-
-- Debug and test during development using the provided test suite and Flask instance.
+- **204 No Content**: Customer endpoint returns empty body to protect sensitive data
+- **404 Not Found**: Used for missing resources
+- **Case-insensitive**: Customer name lookups are case-insensitive
 
 ---
 
-### Task 5: Document and Maintain
+##  Setup
 
-- Commit as you go with meaningful messages.
-- Push commit history to GitHub periodically and when the lab is complete.
+```bash
+# Clone and setup
+git clone https://github.com/mutukuprince6-creator/python-flask-contracts-lab.git
+cd python-flask-contracts-lab
 
----
+# Install dependencies
+pipenv install
 
-## Tools and Resources
+# Activate environment
+pipenv shell
 
-- **GitHub Repo**: *Link to be provided*
-- **Flask Quickstart**: [https://flask.palletsprojects.com/en/stable/quickstart/](https://flask.palletsprojects.com/en/stable/quickstart/)
+# Run application
+python server/app.py
+```
 
----
-
-## Instructions
-
-### Set Up
-
-Before coding:
-
-1. **Fork and Clone**
-   - Go to the provided GitHub repository link.
-   - Fork the repository to your GitHub account.
-   - Clone the forked repository to your local machine.
-
-2. **Open and Run**
-   - Open the project in VSCode.
-   - Run `pipenv install` to install dependencies.
-   - Run `pipenv shell` to activate the Python shell.
+Server runs on `http://localhost:5555`
 
 ---
 
-### Task 1: Define the Problem
+## Testing
 
-Build the following routes:
-
-- `/contract/<id>`
-- `/customer/<customer_name>`
+```bash
+pytest server/testing/app_test.py
+```
 
 ---
+
+## Project Structure
+
+```
+server/
+  ├── app.py              # Main Flask application
+  └── testing/
+      ├── app_test.py     # Unit tests
+      └── conftest.py     # Pytest config
+```
+
+---
+
+## Resources
+
+- [Flask Docs](https://flask.palletsprojects.com/)
+- [REST API Best Practices](https://restfulapi.net/)
+- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
 
 ### Task 2: Determine the Design
 
